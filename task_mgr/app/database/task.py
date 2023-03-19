@@ -7,7 +7,7 @@ def output_formatter(results):
             "id": result[0],
             "summary": result[1],
             "description": result[2],
-            "status": result[3],
+            "status_id": result[3],
             "active": result[4]
         }
         out.append(temp)
@@ -15,7 +15,7 @@ def output_formatter(results):
 
 def scan():
     conn = get_db()
-    cursor = conn.execute("SELECT * FROM TASK", ())
+    cursor = conn.execute("SELECT * FROM task", ())
     results = cursor.fetchall()
     cursor.close()
     conn.close()
@@ -23,7 +23,7 @@ def scan():
 
 def select_by_id(pk):
     conn = get_db()
-    cursor = conn.execute("SELECT * FROM task WHERE id=?", (pk))
+    cursor = conn.execute("SELECT * FROM task WHERE id=?", (pk,))
     results = cursor.fetchall()
     cursor.close()
     conn.close()
@@ -33,14 +33,14 @@ def insert(task_data):
     task_tuple = (
         task_data.get("summary"),
         task_data.get("description"),
-        task_data.get("status"),
+        task_data.get("status_id"),
         task_data.get("active")
     )
     statement = """
         INSERT INTO task (
             summary,
             description,
-            status,
+            status_id,
             active
         ) VALUES (?, ?, ?, ?)
     """
@@ -53,7 +53,7 @@ def update(task_data, pk):
         stmt_tuple= (
             task_data.get("summary"),
             task_data.get("description"),
-            task_data.get("status"),
+            task_data.get("status_id"),
             task_data.get("active"),
             pk
         )
@@ -61,7 +61,7 @@ def update(task_data, pk):
         UPDATE task
         SET summary = ?,
             description = ?,
-            status = ?,
+            status_id = ?,
             active=?
         WHERE id = ?
         """
