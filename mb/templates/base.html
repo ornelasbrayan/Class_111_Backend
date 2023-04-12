@@ -18,12 +18,33 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-              <a class="nav-link" href="{% url 'home' %}">Home</a>
-              <a class="nav-link" href="{% url 'about' %}">About Us</a>
-              <a class="nav-link" href="{% url 'list' %}">Posts</a>
-              <a class="nav-link" href="{% url 'new' %}">New post</a>
-              <a class="nav-link" href="{% url 'login' %}">Login</a>
-              
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'about' %}">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'list' %}">Posts</a>
+              </li>
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'new' %}">New Post</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'draft_posts' %}">Drafts</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Log in</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+              </li>
+              {% endif %}
             </div>
           </div>
         </div>

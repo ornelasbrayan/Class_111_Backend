@@ -5,6 +5,7 @@
 {% block content %}
 
 <h1> Posts </h1>
+<small>Current date and time: {{ timestamp }}</small>
     {% for post in post_list %}
         <div class="card" style="width: 18rem;">
             <div class="card-body">
